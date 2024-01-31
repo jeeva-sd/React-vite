@@ -9,6 +9,12 @@ export interface AppInfo {
     environment: string;
 }
 
+export interface ApiConfig {
+    baseUrl: string;
+    timeOut: number
+}
+
 export interface AppConfig {
     app: AppInfo;
+    api: ApiConfig;
 }
