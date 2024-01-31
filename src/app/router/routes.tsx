@@ -1,18 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { appRoutes } from '~/views/pages';
+import LayoutOne from '~/views/layouts/LayoutOne';
 import { wrapRoutes } from './wrapper';
-import LayoutOne from '@layouts/LayoutOne';
 import { Route } from './types';
-import Dashboard from '@pages/dashboard';
 
-const appRoutes: Route = wrapRoutes({
-    path: '/home',
-    element: <LayoutOne />,
+const routes: Route = wrapRoutes({
+    path: '/app',
     private: true,
-    children: [{
-        path: 'dashboard',
-        element: <Dashboard />,
-        private: true,
-    }]
+    element: <LayoutOne />,
+    children: appRoutes
 });
 
 export const router = createBrowserRouter([
@@ -25,5 +21,5 @@ export const router = createBrowserRouter([
         path: '*',
         element: <>Not found</>,
     },
-    appRoutes
+    routes
 ]);
