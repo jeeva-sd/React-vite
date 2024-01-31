@@ -6,7 +6,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps): JSX.Element => {
-    const isAuthenticated = false;
+    const isAuthenticated = true;
 
     return (
         <>{!isAuthenticated ? <Navigate to="/" /> : <>{children}</>}</>
