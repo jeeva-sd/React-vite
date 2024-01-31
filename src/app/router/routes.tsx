@@ -2,15 +2,16 @@ import { createBrowserRouter } from 'react-router-dom';
 import { wrapRoutes } from './wrapper';
 import LayoutOne from '@layouts/LayoutOne';
 import { Route } from './types';
+import Dashboard from '@pages/dashboard';
 
 const appRoutes: Route = wrapRoutes({
     path: '/home',
     element: <LayoutOne />,
-    private: false,
+    private: true,
     children: [{
-        path: '',
-        element: <>dashboard</>,
-        private: false,
+        path: 'dashboard',
+        element: <Dashboard />,
+        private: true,
     }]
 });
 
