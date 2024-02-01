@@ -17,7 +17,7 @@ const exampleSlice = createSlice({
     name: 'example',
     initialState,
     reducers: {
-        exampleAction: (state) => {
+        exampleAction: (state, _action: PayloadAction<number>) => {
             state.loading = true;
             state.error = null;
         },

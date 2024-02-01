@@ -1,20 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { ReactNode, useEffect } from 'react';
+import { RootState, exampleAction } from '~/store';
+import { useDispatch, useSelector } from 'react-redux';
 import './page.scss';
-import { exampleAction } from '~/store/example/slice';
-import { useSelector } from 'react-redux';
-import { RootState } from '~/store/store';
-import { useEffect } from 'react';
 
-const Dashboard = () => {
+const Dashboard = (): ReactNode => {
     const dispatch = useDispatch();
-    const data = useSelector((state: RootState) => state.example);
+    const { loading, data } = useSelector((state: RootState) => state.example);
 
     useEffect(() => {
-        dispatch(exampleAction());
+        const randomNumber = Math.floor(Math.random() * 20) + 1;
+        dispatch(exampleAction(randomNumber));
     }, []);
 
     return (
-        <div className="dashboard">{JSON.stringify(data)}</div>
+        <div className="dashboard">{loading ? <>Loading...</> : JSON.stringify(data)}</div>
     );
 };
 

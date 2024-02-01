@@ -3,10 +3,10 @@ import { exampleAction, exampleSuccessAction, exampleErrorAction } from './slice
 import { http } from '~/services';
 import { exception } from '~/helpers';
 
-function* fetchData(): Generator {
+function* fetchData(action: ReturnType<typeof exampleAction>): Generator {
     try {
-        const data = yield http.get('/todos');
-        yield put(exampleSuccessAction(data));
+        const response: any = yield http.get(`/todos/${action.payload}`);
+        yield put(exampleSuccessAction(response.data));
     } catch (error) {
         exception(error);
         yield put(exampleErrorAction);
