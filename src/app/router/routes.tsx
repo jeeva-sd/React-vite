@@ -12,14 +12,7 @@ const routes: Route = wrapRoutes({
 });
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <>Hello</>,
-        index: true
-    },
-    {
-        path: '*',
-        element: <>Not found</>,
-    },
-    routes
+    { path: '/', element: <>Hello</>, index: true },
+    routes,
+    { path: '*', element: <>Not found</> }
 ]);
