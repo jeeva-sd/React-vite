@@ -1,11 +1,11 @@
 import { ReactNode, useEffect } from 'react';
-import { RootState, exampleAction } from '~/store';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState, exampleAction, updateNumber } from '~/store';
 import './page.scss';
 
 const Dashboard = (): ReactNode => {
     const dispatch = useDispatch();
-    const { loading, data } = useSelector((state: RootState) => state.example);
+    const { loading, data, number } = useSelector((state: RootState) => state.example);
 
     useEffect(() => {
         const randomNumber = Math.floor(Math.random() * 20) + 1;
@@ -13,7 +13,10 @@ const Dashboard = (): ReactNode => {
     }, []);
 
     return (
-        <div className="dashboard">{loading ? <>Loading...</> : JSON.stringify(data)}</div>
+        <div className="dashboard">
+            {loading ? <>Loading...</> : JSON.stringify(data)}
+            <button onClick={(() => dispatch(updateNumber(number + 5)))}>{number}</button>
+        </div>
     );
 };
 

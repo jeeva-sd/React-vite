@@ -3,7 +3,7 @@ import ErrorBoundary from '../views/components/common/ErrorBoundary';
 import PrivateRoute from '../views/components/common/PrivateRoute';
 import { Route } from './types';
 
-export const applyRouteConfig = (routeConfig: Route) => {
+export const applyRouteConfig = (routeConfig: Route): JSX.Element => {
     const AuthRoute = routeConfig.private ? PrivateRoute : Fragment;
 
     return (
@@ -17,7 +17,7 @@ export const applyRouteConfig = (routeConfig: Route) => {
     );
 };
 
-export const wrapRoutes = (routeConfig: Route) => {
+export const wrapRoutes = (routeConfig: Route): Route => {
     const wrappedRoute = { ...routeConfig };
     wrappedRoute.element = applyRouteConfig(routeConfig);
 
