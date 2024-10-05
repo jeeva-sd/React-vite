@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { MainLayout, AdminLayout } from '../layouts';
 import { HomePage, NotFoundPage, LoginPage, AdminPage, Dashboard } from '../pages';
+import { routes } from '../constants';
 
 export interface Route {
     path: string;
@@ -14,24 +15,24 @@ export interface Route {
 
 export const routesConfig: Route[] = [
     {
-        path: '/',
+        path: routes.home,
         layout: MainLayout,
         component: HomePage,
         isPublic: true,
     },
     {
-        path: '/login',
+        path: routes.login,
         component: LoginPage,
         isPublic: true,
     },
     {
-        path: '/dashboard',
+        path: routes.dashboard,
         layout: MainLayout,
         component: Dashboard,
         isPublic: false,
     },
     {
-        path: '/admin',
+        path: routes.admin,
         layout: AdminLayout,
         component: AdminPage,
         isPublic: false,
