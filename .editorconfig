@@ -1,39 +1,12 @@
-# EditorConfig is awesome: https://EditorConfig.org
-
-# top-most EditorConfig file
 root = true
 
-# Default settings
 [*]
-# Indentation style (space or tab)
 indent_style = space
-# Number of spaces for indentation
-indent_size = 2
-# End of line character
+indent_size = 4
+tab_width = 4
 end_of_line = lf
-# Charset
-charset = utf-8
-# Trim trailing whitespace
 trim_trailing_whitespace = true
-# Insert final newline
 insert_final_newline = true
 
-# Specific settings for TypeScript files
-[*.{ts,tsx}]
-indent_size = 2
-
-# Specific settings for JavaScript files
-[*.{js,jsx}]
-indent_size = 2
-
-# Specific settings for JSON files
-[*.json]
-indent_size = 2
-
-# Specific settings for Markdown files
-[*.md]
-trim_trailing_whitespace = false
-
-# Specific settings for CSS and SCSS files
-[*.{css,scss}]
-indent_size = 2
+[*.ts]
+indent_size = 4
