@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { Navbar } from '../components';
 
 interface AdminLayoutProps {
     children: ReactNode;
@@ -8,7 +9,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     return (
         <div>
             <header>
-                <h1>Admin Dashboard</h1>
+                <Navbar />
+                <h1>Admin Layout</h1>
             </header>
             <main>{children}</main>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../hooks';
 
 interface ProtectedRouteProps {
@@ -16,11 +16,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     allowedRoles = [],
 }) => {
     const { user } = useAuth();
-    const location = useLocation();
     const isAuthenticated = Boolean(user);
 
     if (!isPublic && !isAuthenticated) {
-        return <Navigate to="/login" state={{ from: location }} />;
+        return <Navigate to="/login" />;
     }
 
     if (!isPublic && allowedRoles.length > 0 && !allowedRoles.includes(user?.role || '')) {

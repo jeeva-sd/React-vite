@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { MainLayout, AdminLayout } from '../layouts';
-import { HomePage, NotFoundPage, LoginPage, AdminDashboardPage, UserDashboard, UserHome, UserSettings } from '../pages';
+import { HomePage, NotFoundPage, LoginPage, AdminPage, Dashboard } from '../pages';
 
 export interface Route {
     path: string;
@@ -25,36 +25,20 @@ export const routesConfig: Route[] = [
         isPublic: true,
     },
     {
-        path: '/user-dashboard',
+        path: '/dashboard',
         layout: MainLayout,
-        component: UserDashboard,
+        component: Dashboard,
         isPublic: false,
-        allowedRoles: ['user', 'admin'],
-        children: [
-            {
-                path: 'home',
-                component: UserHome,
-                isPublic: false,
-                allowedRoles: ['user', 'admin'],
-            },
-            {
-                path: 'settings',
-                component: UserSettings,
-                isPublic: false,
-                allowedRoles: ['user', 'admin'],
-            },
-        ],
     },
     {
-        path: '/admin-dashboard',
+        path: '/admin',
         layout: AdminLayout,
-        component: AdminDashboardPage,
+        component: AdminPage,
         isPublic: false,
         allowedRoles: ['admin'],
     },
     {
         path: '*',
-        layout: MainLayout,
         component: NotFoundPage,
         isPublic: true,
     },
