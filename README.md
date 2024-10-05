@@ -10,6 +10,7 @@ This is a boilerplate project for a React application using Vite as the build to
 - **React Router**: For routing and navigation.
 - **Error Boundaries**: To handle errors gracefully.
 - **Protected Routes**: To restrict access based on user roles.
+- **TanStack Query**: For efficient data fetching.
 - **Custom Hooks**: For better state management and reusability.
 - **EditorConfig**: For consistent coding styles across different editors.
 

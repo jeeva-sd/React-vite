@@ -4,20 +4,19 @@ import { useAuth } from '../hooks';
 import { users } from '../constants';
 
 const LoginPage: React.FC = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const { setUser } = useAuth();
     const navigate = useNavigate();
 
+    const [username, setUsername] = useState('admin');
+    const [password, setPassword] = useState('admin123');
+    const [error, setError] = useState('');
+
     const handleLogin = () => {
-        const user = users.find(
-            (u) => u.username === username && u.password === password
-        );
+        const user = users.find((u) => u.username === username && u.password === password);
 
         if (user) {
             setUser({ id: user.id, role: user.role });
-            navigate('/user-dashboard/home');
+            navigate('/');
         } else {
             setError('Invalid username or password');
         }

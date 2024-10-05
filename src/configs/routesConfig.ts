@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
 import { MainLayout, AdminLayout } from '../layouts';
-import { HomePage, NotFoundPage, LoginPage, AdminDashboardPage, UserDashboard, UserHome, UserSettings } from '../pages';
+import { HomePage, NotFoundPage, LoginPage, AdminPage, Dashboard } from '../pages';
+import { routes } from '../constants';
 
 export interface Route {
     path: string;
@@ -8,52 +10,37 @@ export interface Route {
     isPublic: boolean;
     allowedRoles?: string[];
     children?: Route[];
+    providers?: Array<React.FC<{ children: ReactNode; }>>;
 }
 
 export const routesConfig: Route[] = [
     {
-        path: '/',
-        component: HomePage,
+        path: routes.home,
         layout: MainLayout,
+        component: HomePage,
         isPublic: true,
     },
     {
-        path: '/login',
+        path: routes.login,
         component: LoginPage,
         isPublic: true,
     },
     {
-        path: '/user-dashboard',
-        component: UserDashboard,
+        path: routes.dashboard,
         layout: MainLayout,
+        component: Dashboard,
         isPublic: false,
-        allowedRoles: ['user', 'admin'],
-        children: [
-            {
-                path: 'home',
-                component: UserHome,
-                isPublic: false,
-                allowedRoles: ['user', 'admin'],
-            },
-            {
-                path: 'settings',
-                component: UserSettings,
-                isPublic: false,
-                allowedRoles: ['user', 'admin'],
-            },
-        ],
     },
     {
-        path: '/admin-dashboard',
-        component: AdminDashboardPage,
+        path: routes.admin,
         layout: AdminLayout,
+        component: AdminPage,
         isPublic: false,
         allowedRoles: ['admin'],
     },
     {
         path: '*',
         component: NotFoundPage,
-        layout: MainLayout,
         isPublic: true,
     },
 ];

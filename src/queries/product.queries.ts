@@ -7,7 +7,8 @@ const productKeys = queryKeys.product;
 export const useProducts = () => {
     return useQuery<Product[]>({
         queryKey: [productKeys.list],
-        queryFn: fetchProducts
+        queryFn: fetchProducts,
+        staleTime: Infinity
     });
 };
 

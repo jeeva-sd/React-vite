@@ -12,3 +12,4 @@ export const users = [
 
 export * from './endpoints';
 export * from './queryKeys';
+export * from './routes';
