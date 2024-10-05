@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-export const http = {
+export const httpMethods = {
     GET: 'GET' as const,
     POST: 'POST' as const,
     PUT: 'PUT' as const,
@@ -56,23 +56,23 @@ class ApiService {
     }
 
     public async get<T>(url: string): Promise<T> {
-        return this.request<T>({ url, method: http.GET });
+        return this.request<T>({ url, method: httpMethods.GET });
     }
 
     public async post<T>(url: string, data: unknown): Promise<T> {
-        return this.request<T>({ url, method: http.POST, data });
+        return this.request<T>({ url, method: httpMethods.POST, data });
     }
 
     public async put<T>(url: string, data: unknown): Promise<T> {
-        return this.request<T>({ url, method: http.PUT, data });
+        return this.request<T>({ url, method: httpMethods.PUT, data });
     }
 
     public async patch<T>(url: string, data: unknown): Promise<T> {
-        return this.request<T>({ url, method: http.PATCH, data });
+        return this.request<T>({ url, method: httpMethods.PATCH, data });
     }
 
     public async delete<T>(url: string): Promise<T> {
-        return this.request<T>({ url, method: http.DELETE });
+        return this.request<T>({ url, method: httpMethods.DELETE });
     }
 }
 

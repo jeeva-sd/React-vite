@@ -1,13 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createProduct, fetchProductById, fetchProducts, Product } from '../services';
-import { QueryKeys } from './keys';
+import { queryKeys } from '../constants';
 
-const productKeys = QueryKeys.products;
+const productKeys = queryKeys.product;
 
 export const useProducts = () => {
     return useQuery<Product[]>({
         queryKey: [productKeys.list],
-        queryFn: fetchProducts,
+        queryFn: fetchProducts
     });
 };
 

@@ -1,2 +1,2 @@
-export * from './keys';
-export * from './productQueries';
+export * from '../constants/queryKeys';
+export * from './product.queries';
