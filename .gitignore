@@ -25,3 +25,4 @@ dist-ssr
 
 .env.prod
 .env.base
+.env
