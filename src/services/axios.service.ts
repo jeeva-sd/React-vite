@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosBasicCredentials, AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 export const httpMethods = {
     GET: 'GET' as const,
@@ -11,12 +11,13 @@ export const httpMethods = {
 class ApiService {
     private axiosInstance: AxiosInstance;
 
-    constructor(baseURL: string, timeout: number = 10000) {
+    constructor(baseURL: string, timeout: number = 20000, headers?: Record<string, string>) {
         this.axiosInstance = axios.create({
             baseURL,
             timeout,
             headers: {
                 'Content-Type': 'application/json',
+                ...headers
             },
         });
 
@@ -49,8 +50,45 @@ class ApiService {
         };
     }
 
-    public async request<T>({ url, method, data }: { url: string; method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'; data?: unknown; }): Promise<T> {
-        const config: AxiosRequestConfig = { method, url, data };
+    public updateConfig({ headers, withCredentials = false, auth, }: {
+        headers?: AxiosRequestHeaders;
+        withCredentials?: boolean;
+        auth?: AxiosBasicCredentials;
+    }) {
+        if (headers) {
+            this.axiosInstance.defaults.headers.common = {
+                ...this.axiosInstance.defaults.headers.common,
+                ...headers,
+            };
+        }
+
+        this.axiosInstance.defaults.withCredentials = withCredentials;
+
+        if (auth) {
+            this.axiosInstance.defaults.auth = auth;
+        }
+    }
+
+    public async request<T>({ url, method, data, headers, withCredentials, auth }: {
+        url: string;
+        method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+        data?: unknown;
+        headers?: AxiosRequestHeaders;
+        withCredentials?: boolean;
+        auth?: AxiosBasicCredentials;
+    }): Promise<T> {
+        const config: AxiosRequestConfig = {
+            method,
+            url,
+            data,
+            headers: {
+                ...this.axiosInstance.defaults.headers.common,
+                ...headers,
+            },
+            withCredentials,
+            auth
+        };
+
         const response = await this.axiosInstance.request<T>(config);
         return response.data;
     }

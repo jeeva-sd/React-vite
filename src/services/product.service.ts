@@ -12,14 +12,14 @@ export interface Product {
 export const fetchProducts = async () => {
     return await apiService.request<Product[]>({
         url: API.product.list.endpoint,
-        method: API.product.list.method,
+        method: API.product.list.method
     });
 };
 
 export const fetchProductById = async (id: number) => {
     return await apiService.request<Product>({
         url: `${API.product.list.endpoint}/${id}`,
-        method: API.product.list.method,
+        method: API.product.list.method
     });
 };
 
