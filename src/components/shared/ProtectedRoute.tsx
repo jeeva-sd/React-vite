@@ -1,6 +1,7 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks';
+import { routes } from '../../constants';
 
 interface ProtectedRouteProps {
     component: React.FC;
@@ -16,29 +17,28 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     allowedRoles = [],
 }) => {
     const { user } = useAuth();
+    const location = useLocation();
     const isAuthenticated = Boolean(user);
-
-    if (!isPublic && !isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
-
-    if (!isPublic && allowedRoles.length > 0 && !allowedRoles.includes(user?.role || '')) {
-        return <Navigate to="/unauthorized" />;
-    }
 
     const Content = Layout ? (
         <Layout>
             <Component />
-            <Outlet /> {/* This will render any child routes */}
         </Layout>
-    ) : (
-        <>
-            <Component />
-            <Outlet />
-        </>
-    );
+    ) : (<Component />);
 
-    return Content;
+    const navigateTo = () => {
+        if (!isPublic && !isAuthenticated) {
+            return <Navigate to={routes.login} state={{ from: location }} replace />;
+        }
+
+        if (!isPublic && allowedRoles?.length > 0 && !allowedRoles.includes(user?.role || '')) {
+            return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+        }
+
+        return Content;
+    };
+
+    return navigateTo();
 };
 
 export { ProtectedRoute };
