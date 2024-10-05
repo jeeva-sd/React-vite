@@ -1,9 +1,8 @@
-// src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import { UserProvider } from './context/UserContext';
-import { Route as RouteType, routesConfig } from './configs/routesConfig';
+import { ProtectedRoute } from './components';
+import { UserProvider } from './context';
+import { Route as RouteType, routesConfig } from './configs';
 
 const renderRoutes = (routes: RouteType[]) =>
   routes.map((route: RouteType, index: number) => (

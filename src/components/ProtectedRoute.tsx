@@ -1,11 +1,10 @@
-// src/components/ProtectedRoute.tsx
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 interface ProtectedRouteProps {
-  component: React.FC;  // The component to render
-  layout?: React.FC<{ children: React.ReactNode }>; // Optional layout that accepts children
+  component: React.FC;
+  layout?: React.FC<{ children: React.ReactNode; }>;
   isPublic: boolean;
   allowedRoles?: string[];
 }
@@ -16,18 +15,18 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isPublic,
   allowedRoles = [],
 }) => {
-  const { isAuthenticated, userRole } = useAuth();
+  const { user } = useAuth();
   const location = useLocation();
+  const isAuthenticated = Boolean(user);
 
   if (!isPublic && !isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
-  if (!isPublic && !allowedRoles.includes(userRole)) {
+  if (!isPublic && allowedRoles.length > 0 && !allowedRoles.includes(user?.role || '')) {
     return <Navigate to="/unauthorized" />;
   }
 
-  // Use a Fragment if no layout is provided
   const Content = Layout ? (
     <Layout>
       <Component />
@@ -43,4 +42,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   return Content;
 };
 
-export default ProtectedRoute;
+export { ProtectedRoute };

@@ -1,17 +1,10 @@
-// src/config/routesConfig.ts
-import HomePage from '../pages/HomePage';
-import AdminDashboard from '../pages/AdminDashboard';
-import NotFound from '../pages/NotFound';
-import MainLayout from '../layouts/MainLayout';
-import AdminLayout from '../layouts/AdminLayout';
-import UserDashboard from '../pages/dashboard';
-import UserHome from '../pages/dashboard/UserHome';
-import UserSettings from '../pages/dashboard/UserSettings';
+import { MainLayout, AdminLayout } from '../layouts';
+import { HomePage, NotFound, LoginPage, AdminDashboard, UserDashboard, UserHome, UserSettings } from '../pages';
 
 export interface Route {
   path: string;
   component: React.FC;
-  layout?: React.FC<{ children: React.ReactNode }>;  // Ensure layout expects children
+  layout?: React.FC<{ children: React.ReactNode; }>;
   isPublic: boolean;
   allowedRoles?: string[];
   children?: Route[];
@@ -25,6 +18,11 @@ export const routesConfig: Route[] = [
     isPublic: true,
   },
   {
+    path: '/login',
+    component: LoginPage,
+    isPublic: true,
+  },
+  {
     path: '/user-dashboard',
     component: UserDashboard,
     layout: MainLayout,
@@ -32,13 +30,13 @@ export const routesConfig: Route[] = [
     allowedRoles: ['user', 'admin'],
     children: [
       {
-        path: 'home', // Maps to /user-dashboard/home
+        path: 'home',
         component: UserHome,
         isPublic: false,
         allowedRoles: ['user', 'admin'],
       },
       {
-        path: 'settings', // Maps to /user-dashboard/settings
+        path: 'settings',
         component: UserSettings,
         isPublic: false,
         allowedRoles: ['user', 'admin'],

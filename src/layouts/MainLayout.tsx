@@ -1,7 +1,5 @@
-// src/layouts/MainLayout.tsx
 import React, { ReactNode } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { Navbar, Footer } from '../components';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -17,4 +15,4 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   );
 };
 
-export default MainLayout;
+export { MainLayout };

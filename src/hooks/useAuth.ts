@@ -1,7 +1,12 @@
-// src/hooks/useAuth.ts
-import { useUser } from '../context/UserContext';
+import { useContext } from "react";
+import { UserContext, UserContextType } from "../context";
 
-export const useAuth = () => {
-  const { isAuthenticated, userRole } = useUser();
-  return { isAuthenticated, userRole };
+export const useAuth = (): UserContextType => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used within a UserProvider');
+  }
+
+  return context;
 };

@@ -1,40 +1,24 @@
-// src/context/UserContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useState } from 'react';
 
-interface UserContextType {
-    isAuthenticated: boolean;
-    userRole: string;
-    login: (role: string) => void;
-    logout: () => void;
+interface User {
+  id: number;
+  role: string;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+export interface UserContextType {
+  user: User | null;
+  setUser: (user: User) => void;
+}
 
-export const UserProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userRole, setUserRole] = useState('');
+export const UserContext = createContext<UserContextType | undefined>(undefined);
 
-    const login = (role: string) => {
-        setIsAuthenticated(true);
-        setUserRole(role);
-    };
+export const UserProvider: React.FC<{ children: React.ReactNode; }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
 
-    const logout = () => {
-        setIsAuthenticated(false);
-        setUserRole('');
-    };
-
-    return (
-        <UserContext.Provider value={{ isAuthenticated, userRole, login, logout }}>
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
-export const useUser = () => {
-    const context = useContext(UserContext);
-    if (!context) {
-        throw new Error('useUser must be used within a UserProvider');
-    }
-    return context;
-};
