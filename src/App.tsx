@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from './components';
+import { ProtectedRoute, ErrorBoundary } from './components';
 import { UserProvider } from './context';
 import { Route as RouteType, routesConfig } from './configs';
 
@@ -24,11 +24,13 @@ const renderRoutes = (routes: RouteType[]) =>
 
 const App: React.FC = () => {
   return (
-    <UserProvider>
-      <Router>
-        <Routes>{renderRoutes(routesConfig)}</Routes>
-      </Router>
-    </UserProvider>
+    <ErrorBoundary>
+      <UserProvider>
+        <Router>
+          <Routes>{renderRoutes(routesConfig)}</Routes>
+        </Router>
+      </UserProvider>
+    </ErrorBoundary>
   );
 };
 
