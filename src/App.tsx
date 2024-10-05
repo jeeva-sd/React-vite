@@ -16,6 +16,7 @@ const renderRoutes = (routes: RouteType[]) =>
                     component={route.component}
                     isPublic={route.isPublic}
                     allowedRoles={route.allowedRoles}
+                    layout={RouteLayout}
                 />
             )
             : (
@@ -23,6 +24,7 @@ const renderRoutes = (routes: RouteType[]) =>
                     component={route.component}
                     isPublic={route.isPublic}
                     allowedRoles={route.allowedRoles}
+                    layout={RouteLayout}
                 />
             );
 
@@ -30,11 +32,7 @@ const renderRoutes = (routes: RouteType[]) =>
             <Route
                 key={index}
                 path={route.path}
-                element={
-                    <RouteLayout>
-                        {Component}
-                    </RouteLayout>
-                }
+                element={Component}
             >
                 {route.children ? renderRoutes(route.children) : null}
             </Route>
