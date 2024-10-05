@@ -5,7 +5,7 @@ import { routes } from '../../constants';
 
 interface ProtectedRouteProps {
     component: React.FC;
-    layout?: React.FC<{ children: React.ReactNode; }>;
+    layout: React.FC<{ children: React.ReactNode; }>;
     isPublic: boolean;
     allowedRoles?: string[];
 }
@@ -20,25 +20,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     const location = useLocation();
     const isAuthenticated = Boolean(user);
 
-    const Content = Layout ? (
-        <Layout>
-            <Component />
-        </Layout>
-    ) : (<Component />);
+    if (!isPublic && !isAuthenticated) {
+        return <Navigate to={routes.login} state={{ from: location }} replace />;
+    }
 
-    const navigateTo = () => {
-        if (!isPublic && !isAuthenticated) {
-            return <Navigate to={routes.login} state={{ from: location }} replace />;
-        }
+    if (!isPublic && allowedRoles?.length > 0 && !allowedRoles.includes(user?.role || '')) {
+        return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+    }
 
-        if (!isPublic && allowedRoles?.length > 0 && !allowedRoles.includes(user?.role || '')) {
-            return <Navigate to="/unauthorized" state={{ from: location }} replace />;
-        }
-
-        return Content;
-    };
-
-    return navigateTo();
+    return <Layout><Component /></Layout>;
 };
 
 export { ProtectedRoute };
