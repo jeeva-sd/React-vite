@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Navbar, Footer } from '../components';
+import { Navbar } from '../components';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -10,7 +10,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     <div>
       <Navbar />
       <main>{children}</main>
-      <Footer />
     </div>
   );
 };
