@@ -1,5 +1,5 @@
 import { MainLayout, AdminLayout } from '../layouts';
-import { HomePage, NotFound, LoginPage, AdminDashboard, UserDashboard, UserHome, UserSettings } from '../pages';
+import { HomePage, NotFoundPage, LoginPage, AdminDashboardPage, UserDashboard, UserHome, UserSettings } from '../pages';
 
 export interface Route {
     path: string;
@@ -45,14 +45,14 @@ export const routesConfig: Route[] = [
     },
     {
         path: '/admin-dashboard',
-        component: AdminDashboard,
+        component: AdminDashboardPage,
         layout: AdminLayout,
         isPublic: false,
         allowedRoles: ['admin'],
     },
     {
         path: '*',
-        component: NotFound,
+        component: NotFoundPage,
         layout: MainLayout,
         isPublic: true,
     },
