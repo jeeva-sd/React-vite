@@ -1,5 +1,3 @@
-import { ApiService } from './axios.service';
-
-export const apiService = new ApiService('https://fakestoreapi.com');
+export { ApiService } from './axios.service';
 export * from './product.service';
 export * from '../constants/endpoints';

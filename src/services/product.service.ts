@@ -1,5 +1,5 @@
-import { apiService } from '.';
-import { API } from '../constants';
+import { API } from '~/constants';
+import { apiService } from '~/configs';
 
 export interface Product {
     id: number;

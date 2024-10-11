@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { MainLayout, AdminLayout } from '../layouts';
-import { HomePage, NotFoundPage, LoginPage, AdminPage, Dashboard } from '../pages';
-import { routes } from '../constants';
+import { MainLayout, AdminLayout } from '~/layouts';
+import { HomePage, NotFoundPage, LoginPage, AdminPage, Dashboard } from '~/pages';
+import { routes } from '~/constants';
 
 export interface Route {
     path: string;

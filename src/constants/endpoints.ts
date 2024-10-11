@@ -1,4 +1,4 @@
-import { httpMethods } from '../services/axios.service';
+import { httpMethods } from '~/services/axios.service';
 
 const { GET, POST } = httpMethods;
 

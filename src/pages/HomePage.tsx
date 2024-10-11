@@ -1,5 +1,5 @@
 import React from 'react';
-import { useProducts } from '../queries';
+import { useProducts } from '~/queries';
 
 const HomePage: React.FC = () => {
     const { data: productList, isFetching } = useProducts();

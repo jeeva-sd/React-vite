@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks';
-import { users } from '../constants';
+import { useAuth } from '~/hooks';
+import { users } from '~/constants';
 
 const LoginPage: React.FC = () => {
     const { setUser } = useAuth();
