@@ -16,7 +16,6 @@ export interface Route {
 export const routesConfig: Route[] = [
     {
         path: routes.home,
-        layout: MainLayout,
         component: HomePage,
         isPublic: true,
     },

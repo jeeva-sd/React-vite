@@ -14,9 +14,18 @@ export default defineConfig(({ mode }) => {
             sourcemap: false,  // Disable source maps
         },
         plugins: [react()],
+        optimizeDeps: {
+            exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
+        },
         resolve: {
             alias: {
                 '~': '/src',  // Set alias for root directory
+            },
+        },
+        server: {
+            headers: {
+                "Cross-Origin-Opener-Policy": "same-origin",
+                "Cross-Origin-Embedder-Policy": "require-corp",
             },
         },
     };
