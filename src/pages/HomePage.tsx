@@ -1,22 +1,29 @@
-import React from 'react';
-import { useProducts } from '~/queries';
+import React, { useEffect, useState } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { routes } from '../constants/routes';
 
 const HomePage: React.FC = () => {
-    const { data: productList, isFetching } = useProducts();
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    return (
-        <>
-            <h1>Welcome to the Home Page</h1>
-            {isFetching ? 'Loading...' : null}
-            {productList && productList.length > 0 && (
-                <ul>
-                    {productList.map((product) => (
-                        <li key={product.id}>{product.title}</li>
-                    ))}
-                </ul>
-            )}
-        </>
-    );
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+            // Only redirect to dashboard if user is on the exact /app path
+            // Don't redirect if they're already on a specific child route
+            if (location.pathname === routes.home || location.pathname === routes.home + '/') {
+                navigate(`/app/${routes.dashboard}`);
+            }
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, [navigate, location.pathname]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    return <Outlet />;
 };
 
 export { HomePage };
