@@ -1,2 +1,2 @@
 export { Navbar } from './Navbar';
-export { ErrorBoundary, ProtectedRoute } from './common';
+export { ErrorBoundary } from './common';

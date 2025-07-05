@@ -7,7 +7,7 @@ const MainLayout: React.FC = () => {
         <div>
             <Navbar />
             <h1>Main Layout</h1>
-            <main><Outlet /></main>
+            <Outlet />
         </div>
     );
 };
