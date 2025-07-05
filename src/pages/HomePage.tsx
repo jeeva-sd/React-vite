@@ -23,6 +23,7 @@ const HomePage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
+    // Render Outlet for child routes (dashboard, settings)
     return <Outlet />;
 };
 

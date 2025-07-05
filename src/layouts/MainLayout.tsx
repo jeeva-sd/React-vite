@@ -1,16 +1,13 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { Navbar } from '~/components';
 
-interface MainLayoutProps {
-    children: ReactNode;
-}
-
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC = () => {
     return (
         <div>
             <Navbar />
             <h1>Main Layout</h1>
-            <main>{children}</main>
+            <main><Outlet /></main>
         </div>
     );
 };

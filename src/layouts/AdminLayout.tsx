@@ -1,18 +1,16 @@
-import React, { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Navbar } from '~/components';
 
-interface AdminLayoutProps {
-    children: ReactNode;
-}
-
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+const AdminLayout: React.FC = () => {
     return (
         <div>
             <header>
                 <Navbar />
                 <h1>Admin Layout</h1>
             </header>
-            <main>{children}</main>
+            <main>
+                <Outlet />
+            </main>
         </div>
     );
 };

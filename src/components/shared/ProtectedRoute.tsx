@@ -1,21 +1,19 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import React, { memo } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '~/hooks';
 
 interface ProtectedRouteProps {
-    component: React.FC;
-    isPublic: boolean;
-    allowedRoles?: string[];
-    requiredPermissions?: string[];
-    layout: React.FC<{ children: React.ReactNode }>;
+    roles?: string[];
+    permissions?: string[];
+    matchAllRoles?: boolean;
+    matchAllPermissions?: boolean;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-    component: Component,
-    isPublic,
-    allowedRoles,
-    requiredPermissions,
-    layout: Layout,
+const ProtectedRoute: React.FC<ProtectedRouteProps> = memo(({
+    roles,
+    permissions,
+    matchAllRoles = false,
+    matchAllPermissions = false
 }) => {
     const { user, hasRole, hasPermission, isLoading } = useAuth();
     const location = useLocation();
@@ -23,20 +21,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Show loading while checking authentication
     if (isLoading) {
         return (
-            <Layout>
-                <div style={{ textAlign: 'center', padding: '2rem' }}>
-                    <p>Loading...</p>
-                </div>
-            </Layout>
-        );
-    }
-
-    // Public routes - always accessible
-    if (isPublic) {
-        return (
-            <Layout>
-                <Component />
-            </Layout>
+            <div style={{ textAlign: 'center', padding: '2rem' }}>
+                <p>Loading...</p>
+            </div>
         );
     }
 
@@ -46,20 +33,30 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     }
 
     // Check role-based access
-    if (allowedRoles && !allowedRoles.some(role => hasRole(role))) {
-        return <Navigate to="/unauthorized" replace />;
+    if (roles && roles.length > 0) {
+        const hasRequiredRole = matchAllRoles
+            ? roles.every(role => hasRole(role))
+            : roles.some(role => hasRole(role));
+
+        if (!hasRequiredRole) {
+            return <Navigate to="/unauthorized" replace />;
+        }
     }
 
     // Check permission-based access
-    if (requiredPermissions && !requiredPermissions.every(permission => hasPermission(permission))) {
-        return <Navigate to="/unauthorized" replace />;
+    if (permissions && permissions.length > 0) {
+        const hasRequiredPermission = matchAllPermissions
+            ? permissions.every(permission => hasPermission(permission))
+            : permissions.some(permission => hasPermission(permission));
+
+        if (!hasRequiredPermission) {
+            return <Navigate to="/unauthorized" replace />;
+        }
     }
 
-    return (
-        <Layout>
-            <Component />
-        </Layout>
-    );
-};
+    // For layout routes (Layout = React.Fragment), don't wrap
+    // For child routes, Layout will be React.Fragment so just render component
+    return <Outlet />;
+});
 
 export { ProtectedRoute };
