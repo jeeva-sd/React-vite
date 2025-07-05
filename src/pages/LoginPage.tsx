@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '~/hooks';
 import { users } from '~/constants';
-import { useAuthUser } from '~/store';
 
 const LoginPage: React.FC = () => {
     const { setUser } = useAuth();
     const navigate = useNavigate();
-    const { setAuthUser } = useAuthUser();
 
     const [username, setUsername] = useState('admin');
     const [password, setPassword] = useState('admin123');
@@ -38,11 +36,6 @@ const LoginPage: React.FC = () => {
                 role: user.role,
                 permissions,
                 username: user.username
-            });
-
-            setAuthUser({
-                id: user.id,
-                name: user.username
             });
 
             navigate('/app/dashboard');
