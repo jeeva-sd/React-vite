@@ -4,10 +4,10 @@ import { queryKeys } from '~/constants';
 
 const productKeys = queryKeys.product;
 
-export const useProducts = () => {
+export const useProducts = ({ page, limit }: { page: number, limit: number; }) => {
     return useQuery<Product[]>({
-        queryKey: [productKeys.list],
-        queryFn: fetchProducts,
+        queryKey: [productKeys.list, page, limit],
+        queryFn: () => fetchProducts({ page, limit }),
         staleTime: Infinity
     });
 };

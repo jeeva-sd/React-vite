@@ -9,9 +9,9 @@ export interface Product {
     image: string;
 }
 
-export const fetchProducts = async () => {
+export const fetchProducts = async ({ page, limit }: { page: number, limit: number; }) => {
     return apiService.request<Product[]>({
-        url: API.product.list.endpoint,
+        url: `${API.product.list.endpoint}?page=${page}&limit=${limit}`,
         method: API.product.list.method
     });
 };
