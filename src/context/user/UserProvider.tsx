@@ -1,4 +1,5 @@
-import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
+import { UserContext } from './UserContext';
 
 interface User {
     id: number;
@@ -17,8 +18,6 @@ export interface UserContextType {
     logout: () => void;
     isLoading: boolean;
 }
-
-export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
@@ -72,16 +71,17 @@ export const UserProvider: React.FC<{ children: ReactNode; }> = ({ children }) =
     };
 
     return (
-        <UserContext.Provider value={{
-            user,
-            setUser: handleSetUser,
-            hasRole,
-            hasPermission,
-            hasAnyPermission,
-            hasAllPermissions,
-            logout,
-            isLoading
-        }}>
+        <UserContext.Provider
+            value={{
+                user,
+                setUser: handleSetUser,
+                hasRole,
+                hasPermission,
+                hasAnyPermission,
+                hasAllPermissions,
+                logout,
+                isLoading
+            }}>
             {children}
         </UserContext.Provider>
     );

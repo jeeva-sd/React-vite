@@ -1,1 +1,1 @@
-export * from './apiConfig';
+export * from './api.configs';

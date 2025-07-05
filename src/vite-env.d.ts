@@ -1,3 +1,9 @@
 /// <reference types="vite/client" />
 
-declare const appConfig: EnvSchemaType
+import { EnvSchemaType } from "./configs/env.config";
+
+declare global {
+    const appConfig: EnvSchemaType;
+}
+
+export {};

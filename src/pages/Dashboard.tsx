@@ -2,7 +2,6 @@ import { useAuth } from "~/hooks";
 
 const Dashboard: React.FC = () => {
         const { user } = useAuth();
-        console.log(user, 'user')
 
     return <h1>Dashboard Page {user?.username}</h1>;
 };

@@ -59,4 +59,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = memo(({
     return <Outlet />;
 });
 
+ProtectedRoute.displayName = 'ProtectedRoute';
+
 export { ProtectedRoute };
