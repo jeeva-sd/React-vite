@@ -4,13 +4,27 @@ import { apiService } from '~/configs';
 export interface Product {
     id: number;
     title: string;
+    image: string;
     price: number;
     description: string;
-    image: string;
-}
+    brand: string;
+    model: string;
+    color: string;
+    category: string;
+    discount?: number;
+    popular?: boolean;
+    onSale?: boolean;
+  }
+
+  export interface ProductsResponse {
+    status: "SUCCESS" | "FAILURE"; // Add other status if needed
+    message: string;
+    products: Product[];
+  }
+
 
 export const fetchProducts = async ({ page, limit }: { page: number, limit: number; }) => {
-    return apiService.request<Product[]>({
+    return apiService.request<ProductsResponse>({
         url: `${API.product.list.endpoint}?page=${page}&limit=${limit}`,
         method: API.product.list.method
     });

@@ -8,11 +8,7 @@ const mode = appConfig.VITE_MODE;
 export const apiService = new ApiService(
     apiBaseUrl,
     apiTimeout,
-    {
-        'X-App-Version': '1.0.0',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    },
+    {},
     // Enable logging only in development
     mode === 'development',
     // Enable token refresh based on config
